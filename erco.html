@@ -1,0 +1,1835 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ERCO Homes</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    header {
+      display: flex;
+      position: fixed;
+      z-index: 1;
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: center;
+      padding: 10px 40px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+    }
+
+    .logo {
+      width: 200px;
+      height: 55px;
+    }
+
+    nav {
+      min-width: 500px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      width: 50%;
+      gap: 5px;
+    }
+
+    nav a {
+      text-decoration: none;
+      padding: 5px 0;
+      color: #000;
+      font-size: 16px;
+      font-weight: 500;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+    }
+
+    nav .dropdown {
+      position: relative;
+      padding: 5px 0 6px 0;
+      border-bottom: 2px solid transparent;
+    }
+
+    nav .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0%;
+      top: 100%;
+      padding: 10px 0;
+      min-width: 120px;
+      background-color: #f9f9f9;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+
+    }
+
+    nav .dropdown:hover .dropdown-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav a:hover {
+      border-bottom: 2px solid #ccaa66;
+    }
+
+    .dropdown-content a {
+      padding: 8px 20px;
+    }
+
+
+    .dropdown-content a:hover {
+      border-bottom: 2px solid transparent;
+      background-color: rgb(240, 240, 240);
+    }
+
+    .nav-link.active {
+      border-bottom: 2px solid #ccaa66;
+    }
+
+    .dropdown-triangle {
+      font-size: 4px;
+    }
+
+
+
+
+    footer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: 40px 0;
+    }
+
+    .footer-contact {
+      font-size: 1rem;
+      font-weight: 600;
+      /* margin: 0; */
+
+      color: #888;
+    }
+
+    .footer-text {
+      font-size: 1rem;
+      font-weight: 300;
+      margin: 0 0 30px 0;
+      color: #888;
+    }
+
+
+    /* Hide all content sections except the active one */
+    .content-section {
+      display: none;
+      /* display: block; */
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    /* ----- Carousel ----- */
+    .carousel-container {
+      width: 100%;
+      height: 604px;
+      padding-top: 70px;
+      overflow: hidden;
+      position: relative;
+      margin: 0 auto;
+    }
+
+    .carousel {
+      height: 100%;
+      display: flex;
+      transition: transform 1s ease-in-out;
+      cursor: grab;
+    }
+
+    .carousel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .carousel-navigation {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+    }
+
+    .carousel-navigation .dot {
+      height: 8px;
+      width: 8px;
+      background-color: white;
+      border-radius: 50%;
+      border: 3px solid rgba(0, 0, 0, 0.44);
+      margin: 0 4px;
+      cursor: pointer;
+    }
+
+    .carousel-navigation .dot.active {
+      background-color: black;
+      border: 3px solid rgba(255, 255, 255, 0.44)
+    }
+
+    /* ----- Carousel end ----- */
+
+    /* ----- Graphics ----- */
+    .graphics-section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      margin: 40px 0;
+      gap: 60px;
+    }
+
+    .graphics {
+      width: 25%;
+      max-width: 400px;
+    }
+
+    /* ----- Graphics end ----- */
+
+    /* ----- Principles ----- */
+    .principles-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      background-color: #1c1c1c;
+      color: #888;
+    }
+
+    .principles-title-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      margin: 80px 0 20px 0;
+    }
+
+    .principles-lines {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      width: 100px;
+      height: 20px;
+      padding: 0 30px;
+    }
+
+    .principles-line {
+      width: 100%;
+      max-width: 100px;
+      height: 1px;
+      background-color: #888;
+    }
+
+    .principles-title {
+      font-size: 4rem;
+      margin: 0;
+      max-width: 500px;
+      font-weight: 500;
+      color: #fff;
+    }
+
+    .principles-text {
+      font-size: 1.3rem;
+      font-weight: 300;
+      margin: 0 0 40px 0;
+      max-width: 500px;
+    }
+
+    .principles-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+      height: 100%;
+      margin: 20px 0;
+      gap: 20px;
+    }
+
+    .principle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 30%;
+      max-width: 400px;
+    }
+
+    .principle-title {
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin: 0 0 30px 0;
+      color: #fff;
+    }
+
+    svg {
+      fill: #ffffff
+    }
+
+    .principle-text {
+      font-size: 1.1rem;
+      font-weight: 300;
+      margin: 30px 0 0 0;
+      max-width: 300px;
+      text-align: center;
+    }
+
+    /* ----- Principle End ----- */
+
+
+    /* ----- Shared Page Styles----- */
+    .page-margins {
+      margin: 0 auto;
+      padding: 0 15px;
+      width: 1140px;
+      /* background-color: aliceblue; */
+    }
+
+    @media (max-width: 1200px) {
+      .page-margins {
+        width: 940px;
+      }
+    }
+
+    @media (max-width: 1000px) {
+      .page-margins {
+        width: 720px;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .page-margins {
+        width: 90%;
+      }
+    }
+
+    .page-title {
+      font-size: 36px;
+      padding: 100px 15px 20px 15px;
+      font-weight: 500;
+      color: rgb(51, 51, 51);
+    }
+
+    .page-title::after {
+      content: "";
+      display: block;
+      width: 25px;
+      height: 2px;
+      background-color: #ccaa66;
+      margin: 20px 0 0 0;
+    }
+
+    .page-text {
+      font-size: 1.2rem;
+      font-weight: 300;
+      margin-top: 40px;
+      color: rgb(51, 51, 51);
+    }
+
+    /* ----- History Page ----- */
+    .history-img {
+      width: 100%;
+    }
+
+    .history-imgs {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      margin: 40px 0;
+      gap: 20px;
+    }
+
+    .history-imgs div {
+      width: 40%;
+    }
+
+    .history-imgs img {
+      width: 100%;
+    }
+
+
+
+    /* ----- History Page End ----- */
+
+
+    /* ----- Bios Page ----- */
+    .bios-centered {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .bios-names {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin: 15px 0 20px 0;
+      text-align: center;
+      position: relative;
+    }
+
+    .bios-names::after {
+      content: "";
+      display: block;
+      width: 50px;
+      height: 2px;
+      background-color: #333;
+      margin: 15px auto 0 auto;
+      position: absolute;
+      left: 0;
+      right: 0;
+    }
+
+    .bios-text {
+      font-size: 1.1rem;
+      font-weight: 300;
+      margin: 10px 0 0 0;
+      width: 30vw;
+      min-width: 400px;
+      text-align: center;
+    }
+
+    /* ----- Bios Page End ----- */
+
+    .awards img {
+      width: 100%;
+    }
+
+
+    /* ----- Energy Page ----- */
+    .energy-img1 {
+      width: 200px;
+      float: right;
+    }
+
+    .energy-img2 {
+      width: 300px;
+      float: right;
+    }
+
+    .energy-img3 {
+      width: 100%;
+    }
+
+    .energy-points li {
+      margin: 10px 0;
+    }
+
+    .energy-columns {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      align-items: flex-start;
+      width: 100%;
+      height: 100%;
+      margin: 20px;
+    }
+
+    .energy-column {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 20px 40px;
+      width: 25%;
+      max-width: 400px;
+      background-color: rgb(204, 170, 102);
+    }
+
+    .energy-subtitle {
+      font-size: 1.5rem;
+      font-weight: 500;
+      margin: 20px auto 0px auto;
+    }
+
+    /* ----- Energy Page End ----- */
+
+    /* ----- Testimonials Page ----- */
+
+    .testimonials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+    }
+
+    .testimonial {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      align-items: center;
+      width: 40%;
+      padding: 20px;
+
+    }
+
+    .testimonial-text {
+      position: relative;
+      font-size: 22px;
+      font-weight: 300;
+      font-style: italic;
+      line-height: 28px;
+      color: rgb(51, 51, 51);
+      text-align: center;
+    }
+
+    .testimonial-text::before,
+    .testimonial-text::after {
+      font-family: serif;
+      font-size: 80px;
+      color: #888;
+      flex-shrink: 0;
+      position: absolute;
+    }
+
+    .testimonial-text::before {
+      content: "\201C";
+      top: -5px;
+      left: -40px;
+      /* margin-right: 5px; */
+    }
+
+    .testimonial-text::after {
+      content: "\201D";
+      bottom: -50px;
+      right: -30px;
+      /* margin-left: -5px; */
+    }
+
+    .testimonial-name {
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin: 20px 0 0 0;
+      color: rgb(51, 51, 51);
+    }
+
+    /* ----- Testimonials Page End ----- */
+
+
+    /* ----- Plans Page ----- */
+
+    .plans {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      width: 100%;
+      height: 100%;
+      margin: 40px 0 0 0;
+    }
+
+    .plan {
+      flex-grow: 1;
+      width: 28%;
+      max-width: 28%;
+      padding: 20px;
+      background-color: #eeeeee;
+    }
+
+    .plan-name {
+      font-size: 1.8rem;
+      font-weight: 500;
+      margin: 10px 0 -30px 0;
+      color: rgb(51, 51, 51);
+    }
+
+    .plan-img {
+      width: 100%;
+      aspect-ratio: 7/4;
+      object-fit: cover;
+    }
+
+    .plan-views {
+      display: flex;
+      gap: 5px;
+      padding-bottom: 15px;
+    }
+
+    .plan-view {
+      flex-grow: 1;
+      width: 30%;
+      max-width: 50%;
+    }
+
+    .plan-pdf {
+      text-decoration: none;
+      color: #ccaa66;
+    }
+
+    /* ----- Plans Page End ----- */
+
+    /* ----- Gallery Page ----- */
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 10px;
+    }
+
+    .gallery img {
+      object-fit: cover;
+      flex: auto;
+      height: 15vw;
+      margin: 2px;
+      min-height: 200px;
+      max-height: 400px;
+      min-width: 200px;
+      max-width: 500px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.1);
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      overflow: auto;
+    }
+
+    .modal-content {
+      display: block;
+      margin: 10% auto;
+      max-width: 80%;
+      max-height: 80%;
+    }
+
+    .modal-content img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img class="logo" src="http://ercohomes.ca/wp-content/uploads/2018/04/downloadsmall.jpg" alt="">
+    <nav>
+      <a id="home-link" class="nav-link active" onclick="showSection('home')" href="#">HOME</a>
+      <div class="dropdown">
+        <a id="about-link" class="nav-link" href="#">ABOUT <span class="dropdown-triangle">&#9660;</span></a>
+        <div class="dropdown-content">
+          <a id="history-link" class="nav-link" href="#" onclick="showSection('history')">ERCO HISTORY</a>
+          <a id="bios-link" class="nav-link" href="#" onclick="showSection('bios')">BIOS</a>
+          <a id="awards-link" class="nav-link" href="#" onclick="showSection('awards')">AWARDS</a>
+          <a id="energy-link" class="nav-link" href="#" onclick="showSection('energy')">ENERGY EFFICIENCY</a>
+          <a id="testimonials-link" class="nav-link" href="#" onclick="showSection('testimonials')">TESTIMONIALS</a>
+
+        </div>
+      </div>
+      <div class="dropdown">
+        <a id="newhomes-link" class="nav-link" href="#">NEW HOMES <span class="dropdown-triangle">&#9660;</span></a>
+        <div class="dropdown-content">
+          <a id="available-link" class="nav-link" href="#" onclick="showSection('available')">AVAILABLE HOMES</a>
+          <a id="plans-link" class="nav-link" href="#" onclick="showSection('plans')">PLANS</a>
+        </div>
+      </div>
+      <a id="gallery-link" class="nav-link" onclick="showSection('gallery')" href="#">ERCO GALLERY</a>
+      <a id="contact-link" class="nav-link" onclick="showSection('contact')" href="#">CONTACT US</a>
+    </nav>
+  </header>
+  <main>
+
+    <!-- Home page -->
+    <div id="content">
+      <section id="home" class="content-section active">
+        <div id="carousel1" class="carousel-container">
+          <div class="carousel">
+            <img src="assets/erco-home1.jpeg" alt="Image 1" draggable="false">
+            <img src="assets/erco-home2.jpeg" alt="Image 2" draggable="false">
+            <img src="assets/erco-home3.jpeg" alt="Image 3" draggable="false">
+            <img src="assets/erco-home4.jpeg" alt="Image 4" draggable="false">
+            <img src="assets/erco-home5.jpeg" alt="Image 5" draggable="false">
+            <img src="assets/erco-home6.jpeg" alt="Image 6" draggable="false">
+          </div>
+          <div id="carousel1-navigation" class="carousel-navigation">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+          </div>
+        </div>
+        <div class="graphics-section">
+          <img class="graphics" src="assets/erco-graphic1.png" alt="">
+          <img class="graphics" src="assets/erco-graphic2.jpeg" alt="">
+          <img class="graphics" src="assets/erco-graphic3.png" alt="">
+        </div>
+
+        <div class="principles-section">
+          <div class="principles-title-container">
+            <div class="principles-lines">
+              <div class="principles-line"></div>
+              <div class="principles-line"></div>
+            </div>
+            <h2 class="principles-title">BUILDING FOR GENERATIONS...</h2>
+            <div class="principles-lines">
+              <div class="principles-line"></div>
+              <div class="principles-line"></div>
+            </div>
+          </div>
+          <p class="principles-text">The ERCO approach is based on three principles:</p>
+          <div class="principles-container">
+            <div class="principle">
+              <h3 class="principle-title">COMMUNICATION</h3>
+              <svg xmlns="http://www.w3.org/2000/svg" height="80px" viewBox="0 0 640 512">
+                <path
+                  d="M208 352c114.9 0 208-78.8 208-176S322.9 0 208 0S0 78.8 0 176c0 38.6 14.7 74.3 39.6 103.4c-3.5 9.4-8.7 17.7-14.2 24.7c-4.8 6.2-9.7 11-13.3 14.3c-1.8 1.6-3.3 2.9-4.3 3.7c-.5 .4-.9 .7-1.1 .8l-.2 .2 0 0 0 0C1 327.2-1.4 334.4 .8 340.9S9.1 352 16 352c21.8 0 43.8-5.6 62.1-12.5c9.2-3.5 17.8-7.4 25.3-11.4C134.1 343.3 169.8 352 208 352zM448 176c0 112.3-99.1 196.9-216.5 207C255.8 457.4 336.4 512 432 512c38.2 0 73.9-8.7 104.7-23.9c7.5 4 16 7.9 25.2 11.4c18.3 6.9 40.3 12.5 62.1 12.5c6.9 0 13.1-4.5 15.2-11.1c2.1-6.6-.2-13.8-5.8-17.9l0 0 0 0-.2-.2c-.2-.2-.6-.4-1.1-.8c-1-.8-2.5-2-4.3-3.7c-3.6-3.3-8.5-8.1-13.3-14.3c-5.5-7-10.7-15.4-14.2-24.7c24.9-29 39.6-64.7 39.6-103.4c0-92.8-84.9-168.9-192.6-175.5c.4 5.1 .6 10.3 .6 15.5z" />
+              </svg>
+              <p class="principle-text">We know we've done a great job when our customers feel like everything is taken
+                care of and there is nothing for them to
+                worry about. That all starts with excellent communication. One of the ways we maintain this standard is
+                through our
+                dedicated continuity of service. Just pick up the phone and call our General Manager, Sheldon, and he
+                will make sure
+                your process with us is a smooth one.</p>
+            </div>
+
+            <div class="principle">
+              <h3 class="principle-title">KNOWLEDGE</h3>
+              <svg xmlns="http://www.w3.org/2000/svg" height="80px" viewBox="0 0 384 512">
+                <path
+                  d="M272 384c9.6-31.9 29.5-59.1 49.2-86.2l0 0c5.2-7.1 10.4-14.2 15.4-21.4c19.8-28.5 31.4-63 31.4-100.3C368 78.8 289.2 0 192 0S16 78.8 16 176c0 37.3 11.6 71.9 31.4 100.3c5 7.2 10.2 14.3 15.4 21.4l0 0c19.8 27.1 39.7 54.4 49.2 86.2H272zM192 512c44.2 0 80-35.8 80-80V416H112v16c0 44.2 35.8 80 80 80zM112 176c0 8.8-7.2 16-16 16s-16-7.2-16-16c0-61.9 50.1-112 112-112c8.8 0 16 7.2 16 16s-7.2 16-16 16c-44.2 0-80 35.8-80 80z" />
+              </svg>
+              <p class="principle-text">We specialize in working with involved and engaged home buyers who know that our
+                process comes from knowledge and
+                experience. Whether you're a first time buyer or its your third house, let us put our years in the
+                industry to work for
+                you. We can help you create that living space you've always wanted or a rental home for that income
+                stream you'd love to
+                have.</p>
+            </div>
+            <div class="principle">
+              <h3 class="principle-title">TEAMWORK</h3>
+              <svg xmlns="http://www.w3.org/2000/svg" height="80px" viewBox="0 0 640 512">
+                <path
+                  d="M144 0a80 80 0 1 1 0 160A80 80 0 1 1 144 0zM512 0a80 80 0 1 1 0 160A80 80 0 1 1 512 0zM0 298.7C0 239.8 47.8 192 106.7 192h42.7c15.9 0 31 3.5 44.6 9.7c-1.3 7.2-1.9 14.7-1.9 22.3c0 38.2 16.8 72.5 43.3 96c-.2 0-.4 0-.7 0H21.3C9.6 320 0 310.4 0 298.7zM405.3 320c-.2 0-.4 0-.7 0c26.6-23.5 43.3-57.8 43.3-96c0-7.6-.7-15-1.9-22.3c13.6-6.3 28.7-9.7 44.6-9.7h42.7C592.2 192 640 239.8 640 298.7c0 11.8-9.6 21.3-21.3 21.3H405.3zM224 224a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zM128 485.3C128 411.7 187.7 352 261.3 352H378.7C452.3 352 512 411.7 512 485.3c0 14.7-11.9 26.7-26.7 26.7H154.7c-14.7 0-26.7-11.9-26.7-26.7z" />
+              </svg>
+              <p class="principle-text">Consistency is important, its what makes truly great organizations deliver the
+                same high standards to all clients again
+                and again. At ERCO Homes, we have a solid team that has been building houses together for generations.
+                We use the same
+                team members in their specialized sub-trades for all of our projects. In an industry that often uses a
+                variety of
+                contractors, our team is as foundationally solid as the concrete we start your home with!</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- History page -->
+      <section id="history" class="content-section">
+        <h1 class="page-title page-margins">ERCO History</h1>
+        <img class="history-img" src="assets/erco-history-hero.jpeg" alt="stock house plan drawings">
+        <p class="page-text page-margins">Back in 1993, we combined the initials of our founders and owners, Elmo
+          Russell and Cathy O’Keefe, to create ERCO Homes
+          Since those formative days (when we built 90 homes our first year!), we’ve built more than 1,200 houses and
+          created homes in all shapes and sizes from single family properties and duplexes to townhouses and
+          condominiums.
+          <br><br>
+          We listen to what you want and go from there, whatever the type of home you want to create. The smallest
+          house we’ve built so far was 900 square feet, and the largest was 6000 square feet – both beautiful living
+          spaces that perfectly suit their owners.
+          <br><br>
+          ERCO is a name to trust in an industry where who you choose will impact the entire outcome of your new home.
+          <br><br>
+          You may have seen our work before without knowing it. We have been the builder for the popular Dream Homes
+          fundraiser run by the provincial chapter of the Canadian Hard of Hearing Association since 1996. You can
+          read more about our partnership and work with the
+          <a href="http://www.ultimatedreamhomelottery.com/" target="_blank" rel="noopener">CHHA-NL</a>
+          here.
+          <br><br>
+          Beyond having a look at our site and getting a sense of the work we’ve done and what we can do for you, we’d
+          love to meet and tell you more in person. So, reach out and give us a call and let’s get started on your own
+          dream home. You can find our contact information listed at the bottom of our site and on our contact page.
+          We look
+          forward to hearing from you!
+        </p>
+        <div class="page-margins">
+          <!-- <div id="carousel2" class="carousel-container"> -->
+          <div class="history-imgs">
+            <div onclick="openModal('assets/erco-history1.jpeg')">
+              <img src="assets/erco-history1.jpeg" alt="Image 1" draggable="false">
+            </div>
+            <div onclick="openModal('assets/erco-history2.jpeg')">
+              <img src="assets/erco-history2.jpeg" alt="Image 2" draggable="false">
+            </div>
+            <div onclick="openModal('assets/erco-history3.jpeg')">
+              <img src="assets/erco-history3.jpeg" alt="Image 3" draggable="false">
+            </div>
+            <div onclick="openModal('assets/erco-history4.jpeg')">
+              <img src="assets/erco-history4.jpeg" alt="Image 4" draggable="false">
+            </div>
+
+          </div>
+          <!-- <div id="carousel2-navigation" class="carousel-navigation">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot"></div>
+            </div>
+          </div> -->
+        </div>
+      </section>
+      <!-- History page end -->
+
+      <!-- Bios page -->
+      <section id="bios" class="content-section">
+        <h1 class="page-title page-margins">Bios</h1>
+        <p class="page-text page-margins">
+          Teamwork is important to us, as one of our guiding principles. It keeps the quality of our work for each
+          client and each house consistently high, and makes the work we do as efficient as possible, all working
+          together like a well-oiled machine.
+          <br><br>
+          At ERCO Homes, we have a solid team that has been building houses together for generations. We use the same
+          team members in their specialized sub-trades for all of our projects. In an industry that often uses a
+          variety of
+          contractors, our team is as foundationally solid as the concrete we start your home with!
+          <br><br>
+          Read more about some of our key team members in and out of the office…
+        </p>
+        <div class="bios-centered">
+          <img src="assets/erco-history1.jpeg" alt="">
+          <h3 class="bios-names">Cathy and Elmo</h3>
+          <p class="bios-text">
+            OWNERS
+            <br><br>
+            In 1993 Elmo Russell (B.Comm) and Cathy O’Keefe (B.Comm, MBA) used the initials of their names, their
+            business education
+            and motivation to start ERCO Homes Inc. Starting with a subdivision in Mount Pearl they began their
+            homebuilding
+            business, which later expanded to many areas of the greater St. John’s area with over 1200 homes completed
+            to date. The
+            success of the business comes from many long held relationships with employees, sub-trades and suppliers,
+            resulting in a
+            team of people dedicated to building a quality product.
+          </p>
+        </div>
+      </section>
+      <!-- Bios page end -->
+
+      <!-- Awards page -->
+      <section id="awards" class="content-section">
+        <h1 class="page-title page-margins">Bios</h1>
+        <p class="page-text page-margins">
+          Teamwork is important to us, as one of our guiding principles. It keeps the quality of our work for each
+          client and each house consistently high, and makes the work we do as efficient as possible, all working
+          together like a well-oiled machine
+        </p>
+        <div class="awards page-margins">
+          <img src="assets/erco-awards1.jpeg" alt="">
+          <img src="assets/erco-awards2.jpeg" alt="">
+          <img src="assets/erco-awards3.jpeg" alt="">
+          <img src="assets/erco-awards4.jpeg" alt="">
+          <img src="assets/erco-awards5.jpeg" alt="">
+          <img src="assets/erco-awards6.jpeg" alt="">
+        </div>
+      </section>
+      <!-- Awards page end -->
+
+      <!-- Energy page -->
+      <section id="energy" class="content-section">
+        <h1 class="page-title page-margins">Energy Efficiency</h1>
+        <p class="page-text page-margins">
+          <img class="energy-img1" src="assets/erco-energy1.jpeg" alt="">
+          Many future home-owners start with a vision about what their home should be, and often that wish list includes
+          a highly-efficient new living space. People want homes that are well-insulated to keep heating costs down,
+          environmentally friendly, and much more.
+          <br><br>
+          ERCO Homes is licensed by the Government of Canada as a certified ENERGY STAR® , R-2000 and EnerGuide builder.
+          <br><br>
+          <br><br>
+          <img class="energy-img2" src="assets/erco-energy2.jpeg" alt="">
+          An ENERGY STAR® qualified new home is 20 percent more energy efficient, on average, than a home built to
+          minimum National Building Code standards. Some of the valuable features included in an energy efficient home
+          are:
+        </p>
+        <div class="page-margins">
+          <ul class="page-text energy-points">
+            <li>Efficient heating and cooling systems that use less energy, reduce indoor humidity and improve the
+              overall
+              comfort of
+              your home.</li>
+            <li>High-performance ENERGY STAR® qualified windows, patio doors, and skylights keep the heat in during the
+              winter and out during the summer.</li>
+            <li>Walls and ceilings insulated beyond what is required by the building code.</li>
+            <li> A variety of ENERGY STAR products which use less electricity by meeting strict technical
+              specifications.
+            </li>
+            <li>A heat or energy recovery ventilation system (HRV or ERV) ensures your home has controlled ventilation
+            </li>
+          </ul>
+        </div>
+        <p class="page-text page-margins">
+          Your new ENERGY STAR® home will be awarded an ENERGY STAR label approved by the Government of Canada (affixed
+          to
+          your
+          electrical panel) and also issued a government certificate.
+          <br><br>
+          We can also build you an R-2000 home. What’s the difference? Both ENERGY STAR and R-2000 new homes offer a
+          number of
+          energy saving features to provide maximum energy efficiency. R-2000 homes, in addition to the features listed
+          above,
+          provide even higher efficiency levels and include clean air and environmental features that make them some of
+          the most
+          energy-efficient homes on the market today.
+          <br><br>
+          Ask us today about which choice is right for you. We’d love the opportunity to discuss the potential energy
+          savings for
+          your home.
+        </p>
+        <img class="energy-img3" src="/assets/erco-energy3.jpeg" alt="">
+
+        <div class="energy-columns">
+          <div class="energy-column">
+            <h3 class="energy-subtitle">What is ENERGY STAR®?</h3>
+            <p class="page-text">ENERGY STAR is an internationally recognized brand and a trusted symbol for identifying
+              energy-efficient
+              products like
+              kitchen appliances, televisions but it is also applied to new homes.
+              In little more than a decade, the blue ENERGY STAR symbol has become a consumer icon in Canada and has
+              come to represent
+              the standard of premium energy efficiency in many product categories.
+              Since 2005, energy-efficient new homes can also be ENERGY STAR qualified. Its guiding star is well known
+              and trusted by
+              Canadians as the highest mark of energy efficiency performance. Ask us about how your home can have an
+              Energy Star!</p>
+          </div>
+          <div class="energy-column">
+            <h3 class="energy-subtitle">What is an R-2000 home?</h3>
+            <p class="page-text">R-2000 is the summary of many factors, but simply put, an R-2000 house is a better
+              home. R-2000-certified
+              new homes are
+              best-in-class energy-efficient homes that include high levels of insulation, clean air features and
+              measures to help
+              protect the environment. This translates into energy savings, increased comfort, and a healthier
+              environment for the
+              homeowner and their family. Every R-2000 home is built to the stringent R-2000 Standards developed by
+              Natural Resources
+              Canada (NRCan) in coordination with key industry stakeholders and these standards are upgraded as
+              technology changes.
+              ERCO is proud of its team and their ability to meet and exceed R-2000 standards.</p>
+          </div>
+          <div class="energy-column">
+            <h3 class="energy-subtitle">What is EnerGuide?</h3>
+            <p class="page-text">An EnerGuide rating shows a standard measure of a home’s energy performance. It shows
+              homeowners (and
+              future buyers)
+              exactly how energy efficient their home is.
+              The rating is calculated based on standard operation assumptions, providing the ability to compare one
+              home against
+              another.
+              The home’s energy efficiency level is rated on a scale of 0 to 100. A rating of 0 represents a home with
+              major air
+              leakage, no insulation and high energy consumption.
+              A rating of 100 represents a house that is airtight, well insulated, sufficiently ventilated and requires
+              no purchased
+              energy on an annual basis.</p>
+          </div>
+        </div>
+
+
+      </section>
+      <!-- Energy page end -->
+
+
+      <!-- Testimonials page -->
+      <section id="testimonials" class="content-section">
+        <h1 class="page-title page-margins">Testimonials</h1>
+        <div class="page-text page-margins">
+          <div class="testimonials">
+            <div class="testimonial">
+              <p class="testimonial-text">Now that the dust has settled and we are able to sit back and relax, I just
+                wanted to
+                send you a note thanking yourself,
+                Brian and Clarence for everything. We decided on ERCO because of our past experience and you were
+                equally
+                efficient
+                this time. You delivered everything we asked for on time and under our budget. In fact, we moved in 2
+                weeks earlier
+                than scheduled and both you and Brian offered suggestions and improvements we would have missed, and
+                Clarence was always
+                there to help with anything we wanted. There may be builders who may do as good a job as you do but it
+                is
+                impossible for
+                anyone to be better.</p>
+              <p class="testimonial-name">Gary Summers</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-text">During the past year Mr. Elmo Russell constructed my new family home and I had
+                the opportunity to work closely and
+                convey my ideas to him over that period of time. I must sincerely say that he was forthright, extremely
+                patient and has
+                a manner about him whereby his ability to communicate effectively put the client at ease.</p>
+              <p class="testimonial-name">C. Beson-Nolan</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-text">The ease of our move to St. John’s from outside the province was made possible
+                with the assistance of ERCO Homes. They
+                were very accommodating to our needs in purchasing our home and assisted in selecting the items to make
+                our home
+                complete. The ECRO Home employees were very courteous and professional throughout our home construction
+                and purchasing
+                process! Thank you ERCO Homes.</p>
+              <p class="testimonial-name">The Wallis Family</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-text">The quality of the workmanship is excellent. We have received many compliments
+                on our house. The after sale service as
+                well was excellent. The couple of minor things that needed to be done were handled promptly and to our
+                satisfaction. The
+                whole experience of building our new house with ERCO Development was most satisfactory. Everything was
+                handled in a most
+                professional manner.</p>
+              <p class="testimonial-name">D&C Boland</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-text">We feel very fortunate that ERCO Homes built our house, the whole experience
+                was great. The quality of work was top
+                notch. Sheldon and Brian were very professional and easy to work with, without their help and expertise
+                in building we
+                wouldn’t have been able to turn the house plans into our dream home. If we were going to build another
+                house, we’d call
+                ERCO Homes, and we will recommend ERCO Homes to our family and friends.</p>
+              <p class="testimonial-name">Jack</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-text">If I had to buy another home at any time in the future, I would not hesitate
+                in the least to deal with ERCO Development.
+                My experience has been a positive one from the very beginning. I would highly recommend this company to
+                anyone who was
+                in the market for a home.</p>
+              <p class="testimonial-name">C.Morrison</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-text">We would like to take this time to thank you Sheldon, and the entire ERCO
+                team, for our new home.
+                <br><br>
+                Even though this was not our first building experience, it was certainly one of the most positive. The
+                fact that our new
+                home was built while we lived in another town did not affect the communication, it still remained
+                exceptional. We always
+                felt part of the building process and there was always someone available to answer any questions or
+                concerns we had. We
+                really felt that they were there to help us every step of the way, we even took possession early which
+                was a very nice
+                surprise.
+                <br><br>
+                ERCO personnel were always professional and we never felt any question was too small. Their suggestions
+                and attention to
+                detail were great and in the end that’s what really makes our house our home.
+                <br><br>
+                We would certainly recommend ERCO to family and friends. Their experience in the industry shows with the
+                homes they
+                build and in the overall customer service they provide.
+              </p>
+              <p class="testimonial-name">Cecil and Kristie Wheeler</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-text">We purchased our family home in September from ERCO Homes. We had spent over
+                six months looking for a place that our
+                family felt would suit our needs and that was well built. As soon as we walked in to 12 Antelope Street
+                we were struck
+                by the quality of the workmanship and finishing’s of the house. Small details like the pantry in the
+                kitchen and double
+                closets in the bedrooms had us sold! As with any new home, there are some odds and ends to be complete
+                once we were
+                settled and we were delighted by the superior service that we received by Kelly. She was always
+                available for any issue
+                that arose and ensured that contractors were on site on time. We have lived in our home for over two
+                years now and have
+                NO outstanding issues. We plan to purchase a two apartment investment property in the next year and will
+                call ERCO
+                first! The quality of construction combined with the outstanding customer service we received give us
+                peace of mind to
+                make our next home purchase an easy one. Thanks ERCO!</p>
+              <p class="testimonial-name">The Ryan Family</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-text">I share that I have been contacted by Atlantic Home Warranty Program and have
+                provided ERCO Homes with an “Excellent”
+                rating. I am very pleased with the house, the workmanship, the professionalism of the team (both office
+                and site) as
+                well as the follow-up services provided by ERCO. And I am happy to recommend your company to others.
+                Again, a very
+                sincere “thank you” to ALL.</p>
+              <p class="testimonial-name">Janet Short</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-text">Dear Erco Homes and Team, A note to express our deepest thanks and gratitude
+                to you for participating in the Dream Home
+                fundraiser for the Canadian Association of the Hard of Hearing. Your partnership speaks of your
+                charitable spirit and
+                community commitment! As the winners – we love our home and feel so at home J A special thanks to
+                Sheldon to Sheldon for
+                your kindness. Thank you all for facilitating a new adventure for our little family!</p>
+              <p class="testimonial-name">Jamie, Lori, Ryan & Kiera</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-text">We purchase our custom built home from ERCO Homes in Clovelly Trails
+                Subdivision. Our experience was extremely positive.
+                Sheldon and Brian were easy to do business with, were very professional and gave top priority to
+                customer satisfaction
+                and service. We would recommend Erco Homes to anyone planning to build a new home. If we have the
+                opportunity to build
+                again we would not hesitate to use Erco Homes.</p>
+              <p class="testimonial-name">Jill Parsons and Bill Wiseman</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-text">Good Morning, I just wanted to say how pleased I was to work with Brian on
+                this project. I found he was always available
+                for any questions or concerns I had with the house. He was great to work with. I’m sure Erco is proud to
+                have such an
+                employee on staff! Thanks again Sheldon for everything.</p>
+              <p class="testimonial-name">Marina</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-text">I have had a few houses built by ERCO Construction and I must say that if I
+                ever build again, ERCO would have to be the
+                contractor. Every aspect of the building experience from start to finish has been professional, and
+                every detail in the
+                house has been well done. It seems to me that their workers are a cut above the best. What we liked most
+                of all was the
+                fact that their management people ie. Sheldon Colbourne, is on the job a lot, making sure the project is
+                going well and
+                on time. They certainly live up to their reputation as a top notch contracting firm to deal with. We’ve
+                had a great
+                experience.</p>
+              <p class="testimonial-name">Norm & Belle Doyle</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-text">Hi Sheldon, I just wanted to take the time to thank you and the guys that
+                built our house. I could not ask for a better
+                job done. Thank you to Brian, yourself & Kelly for everything.</p>
+              <p class="testimonial-name">Jeff and Angela</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-text">The folks at ERCO did a stellar job in addressing issues as they arose. No new
+                home building project proceeds without
+                some form of interruption, especially in today’s busy construction industry. What sets builders apart is
+                their ability
+                to keep customers happy and informed, even in the presence of these delays. For this, I applaud the ERCO
+                staff.” “…we
+                will surely be in consultation with ERCO Developments should we decide to build again.</p>
+              <p class="testimonial-name">T. Reid</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-text">Hi Elmo, I wanted to drop you a note to express our gratitude and thanks to
+                your team during the construction of our new
+                home on 96 Blue Puttee. Your team lead by Sheldon and Brian were always accessible, highly
+                knowledgeable, provided value
+                added advice and true professionals both before and after the sale. The focus on the customer was
+                certainly evident and
+                having built a number of homes I would definitely recommend a home built by ERCO. You are lucky to have
+                them on your
+                team! Continued success to you and I look forward to doing business with you in the months and years to
+                come.</p>
+              <p class="testimonial-name">Shane</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-text">As Director of Special Projects – CHHA-NL I must develop mutually productive
+                relationships between ourselves and private
+                industry and I feel so fortunate to have been introduced to ERCO Homes. Quite literally from the very
+                first meeting you
+                have always illustrated to me that you are a community minded individual and as such you ensure that
+                ERCO Homes is as
+                well. Together we have built nine of “The Ultimate Dream Homes” that have anchored one of the most
+                successful
+                fundraising campaigns in the province in recent memory.” “Your professionalism and progressive attitude
+                are the reasons
+                that you have consistently delivered beautiful homes, well built and on time, every time. The entire
+                ERCO Homes team has
+                been a pleasure to work with.</p>
+              <p class="testimonial-name">T. Martin</p>
+            </div>
+            <div class="testimonial">
+              <p class="testimonial-text">My decision to purchase an Energy Efficient Home from ERCO Development was an
+                excellent choice. Sheldon and his team of
+                professionals were attentive to all my concerns and followed through with all my requests. They even
+                installed my
+                appliances and my home was finished before the closing date. All I had to do was move in and it was
+                worry-free!</p>
+              <p class="testimonial-name">Cathy</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Testimonials page end -->
+
+
+      <!-- Listings page -->
+      <section id="listings" class="content-section">
+        <h1 class="page-title page-margins">ERCO Homes Listings</h1>
+        <p class="page-text page-margins">
+          No Properties Found.
+        </p>
+      </section>
+      <!-- Listings page end -->
+
+      <!-- Plans page -->
+      <section id="plans" class="content-section">
+        <div class="page-margins">
+          <h1 class="page-title page-margins">Plans</h1>
+          <p class="page-text page-margins">
+            We have many plans available for you to choose from, but don’t feel your options end there – we can make
+            custom changes
+            to our plans or work with a custom plan provided by you.
+            <br><br>
+            Here are some of our popular plans. Click on the images below for a larger view.
+          </p>
+          <div class="plans page-margins">
+            <div class="plan">
+              <img class="plan-img" src="assets/erco-plans1-1.jpeg" alt="">
+              <p class="plan-name">Atlantic</p>
+              <ul class="page-text">
+                <li>3 Bedrooms, 2 Bathrooms</li>
+                <li>Large eat-in kitchen</li>
+                <li>Finished rec room</li>
+                <li>Built with finished one bedroom apartment</li>
+              </ul>
+              <div class="plan-views">
+                <img class="plan-view" src="assets/erco-plans1-2.jpeg" alt="">
+                <img class="plan-view" src="assets/erco-plans1-3.jpeg" alt="">
+              </div>
+              <a class="plan-pdf" href="assets/atlanticbrochure.pdf" target="_blank">Printable View</a>
+            </div>
+            <div class="plan">
+              <img class="plan-img" src="assets/erco-plans2-1.jpeg" alt="">
+              <p class="plan-name">Belfast</p>
+              <ul class="page-text">
+                <li>3 bedrooms & 3 baths</li>
+                <li>Ensuite & walk-in closet in master</li>
+                <li>5 car garage</li>
+                <li>Open concept living area</li>
+              </ul>
+              <div class="plan-views">
+                <img class="plan-view" src="assets/erco-plans2-2.jpeg" alt="">
+                <img class="plan-view" src="assets/erco-plans2-3.jpeg" alt="">
+                <img class="plan-view" src="assets/erco-plans2-4.jpeg" alt="">
+              </div>
+              <a class="plan-pdf" href="assets/Belfast2.pdf" target="_blank">Printable View</a>
+            </div>
+            <div class="plan">
+              <img class="plan-img" src="assets/erco-plans3-1.jpeg" alt="">
+              <p class="plan-name">Birchwood</p>
+              <ul class="page-text">
+                <li>3 bedrooms, 1 bathroom</li>
+                <li>Main floor laundry</li>
+                <li>Insulated basement with apartment rough-in</li>
+                <li>Shown with optional 2 bedroom apartment</li>
+              </ul>
+              <div class="plan-views">
+                <img class="plan-view" src="assets/erco-plans3-2.jpeg" alt="">
+                <img class="plan-view" src="assets/erco-plans3-3.jpeg" alt="">
+              </div>
+              <a class="plan-pdf" href="assets/BirchwoodBrochure3.pdf" target="_blank">Printable View</a>
+            </div>
+            <div class="plan">
+              <img class="plan-img" src="assets/erco-plans4-1.jpeg" alt="">
+              <p class="plan-name">Cambridge</p>
+              <ul class="page-text">
+                <li>3 bedrooms, 2 bathrooms</li>
+                <li>Single car garage</li>
+                <li>Patio door off family room</li>
+                <li>Insulated basement with finished family room</li>
+                <li>Shown with completed apartment layout</li>
+              </ul>
+              <div class="plan-views">
+                <img class="plan-view" src="assets/erco-plans5-2.jpeg" alt="">
+                <img class="plan-view" src="assets/erco-plans5-3.jpeg" alt="">
+              </div>
+              <a class="plan-pdf" href="assets/Cambridgebrochure4.pdf" target="_blank">Printable View</a>
+            </div>
+            <div class="plan">
+              <img class="plan-img" src="assets/erco-plans5-1.jpeg" alt="">
+              <p class="plan-name">Kitchener</p>
+              <ul class="page-text">
+                <li>3 bedrooms, 2 bathrooms</li>
+                <li>Patio door off kitchen</li>
+                <li>Insulated basement with apartment rough-in</li>
+                <li>Shown with optional apartment layout</li>
+              </ul>
+              <div class="plan-views">
+                <img class="plan-view" src="assets/erco-plans5-2.jpeg" alt="">
+                <img class="plan-view" src="assets/erco-plans5-3.jpeg" alt="">
+              </div>
+              <a class="plan-pdf" href="assets/Kitchenerbrochure5.pdf" target="_blank">Printable View</a>
+            </div>
+            <div class="plan">
+              <img class="plan-img" src="assets/erco-plans6-1.jpeg" alt="">
+              <p class="plan-name">Dante</p>
+              <ul class="page-text">
+                <li>3 bedrooms, 2 bathrooms</li>
+                <li>Walk-in closet in master</li>
+                <li>Front bay window</li>
+                <li>Patio door off kitchen</li>
+                <li>Insulated basement with apt rough-in only</li>
+                <li>Shown with optional apartment layout</li>
+              </ul>
+              <div class="plan-views">
+                <img class="plan-view" src="assets/erco-plans6-2.jpeg" alt="">
+                <img class="plan-view" src="assets/erco-plans6-3.jpeg" alt="">
+              </div>
+              <a class="plan-pdf" href="assets/Dantebrochure6.pdf" target="_blank">Printable View</a>
+            </div>
+            <div class="plan">
+              <img class="plan-img" src="assets/erco-plans2-1.jpeg" alt="">
+              <p class="plan-name">Catalina</p>
+              <ul class="page-text">
+                <li>3 bedrooms, 2 bathrooms</li>
+                <li>Patio door off kitchen</li>
+                <li>Finished rec room</li>
+                <li>Built with finished 2 bedroom apartment</li>
+              </ul>
+              <div class="plan-views">
+                <img class="plan-view" src="assets/erco-plans7-2.jpeg" alt="">
+                <img class="plan-view" src="assets/erco-plans7-3.jpeg" alt="">
+              </div>
+              <a class="plan-pdf" href="assets/Catelinabrochure7.pdf" target="_blank">Printable View</a>
+            </div>
+            <div class="plan">
+              <img class="plan-img" src="assets/erco-plans8-1.jpeg" alt="">
+              <p class="plan-name">Elliston</p>
+              <ul class="page-text">
+                <li>3 bedrooms, 2 bathrooms</li>
+                <li>Patio door off kitchen</li>
+                <li>Front veranda</li>
+                <li>Insulated basement with apt rough-in</li>
+                <li>Shown with optional apartment layout</li>
+              </ul>
+              <div class="plan-views">
+                <img class="plan-view" src="assets/erco-plans8-2.jpeg" alt="">
+                <img class="plan-view" src="assets/erco-plans8-3.jpeg" alt="">
+              </div>
+              <a class="plan-pdf" href="assets/EllistonBrochure8.pdf" target="_blank">Printable View</a>
+            </div>
+            <div class="plan">
+              <img class="plan-img" src="assets/erco-plans9-1.jpeg" alt="">
+              <p class="plan-name">Newman</p>
+              <ul class="page-text">
+                <li>3 bedrooms, 2 bathrooms</li>
+                <li>Bay window in living room</li>
+                <li>Eat in kitchen</li>
+                <li>Insulated basement with apt rough-in</li>
+                <li>Shown with optional 2 bedroom apartment</li>
+              </ul>
+              <div class="plan-views">
+                <img class="plan-view" src="assets/erco-plans9-2.jpeg" alt="">
+                <img class="plan-view" src="assets/erco-plans9-3.jpeg" alt="">
+              </div>
+              <a class="plan-pdf" href="assets/Newmanbrochure9.pdf" target="_blank">Printable View</a>
+            </div>
+            <div class="plan">
+              <img class="plan-img" src="assets/erco-plans10-1.jpeg" alt="">
+              <p class="plan-name">Princeton</p>
+              <ul class="page-text">
+                <li>2 bedrooms, 1 bathroom</li>
+                <li>9′ ceilings on main floor</li>
+                <li>Many upgrades, generous allowances</li>
+                <li>Insulated basement with apt rough-in</li>
+                <li>Shown with optional 1 bedroom apartment</li>
+              </ul>
+              <div class="plan-views">
+                <img class="plan-view" src="assets/erco-plans10-2.jpeg" alt="">
+                <img class="plan-view" src="assets/erco-plans10-3.jpeg" alt="">
+              </div>
+              <a class="plan-pdf" href="assets/Princtonbrochure10.pdf" target="_blank">Printable View</a>
+            </div>
+            <div class="plan">
+              <img class="plan-img" src="assets/erco-plans11-1.jpeg" alt="">
+              <p class="plan-name">Clover</p>
+              <ul class="page-text">
+                <li>4 bedrooms & 4.5 baths</li>
+                <li>Ensuite & walk-in closet in master</li>
+                <li>Fully developed basement with Large rec room</li>
+                <li>Open concept living area with patio door off kitchen</li>
+              </ul>
+              <div class="plan-views">
+                <img class="plan-view" src="assets/erco-plans11-2.jpeg" alt="">
+                <img class="plan-view" src="assets/erco-plans11-3.jpeg" alt="">
+                <img class="plan-view" src="assets/erco-plans11-4.jpeg" alt="">
+              </div>
+              <a class="plan-pdf" href="assets/CloverBrochure11.pdf" target="_blank">Printable View</a>
+            </div>
+            <div class="plan">
+              <img class="plan-img" src="assets/erco-plans12-1.jpeg" alt="">
+              <p class="plan-name">Staubach</p>
+              <ul class="page-text">
+                <li>3 Bedrooms</li>
+                <li>5 Baths</li>
+                <li>Patio door off family room</li>
+              </ul>
+              <div class="plan-views">
+                <img class="plan-view" src="assets/erco-plans12-2.jpeg" alt="">
+                <img class="plan-view" src="assets/erco-plans12-3.jpeg" alt="">
+              </div>
+              <a class="plan-pdf" href="assets/Staubach-Brochure12.pdf" target="_blank">Printable View</a>
+            </div>
+
+            <div class="plan">
+              <img class="plan-img" src="assets/erco-plans13-1.jpeg" alt="">
+              <p class="plan-name">Unitas</p>
+              <ul class="page-text">
+                <li>3 bedrooms & 2 1/2 baths</li>
+                <li>Ensuite & walk-in closet in master</li>
+                <li>Open concept living area</li>
+                <li>Patio door off kitchen</li>
+              </ul>
+              <div class="plan-views">
+                <img class="plan-view" src="assets/erco-plans13-2.jpeg" alt="">
+                <img class="plan-view" src="assets/erco-plans13-3.jpeg" alt="">
+              </div>
+              <a class="plan-pdf" href="assets/Unitas-Brochure13.pdf" target="_blank">Printable View</a>
+            </div>
+            <div class="plan">
+              <img class="plan-img" src="assets/erco-plans14-1.jpeg" alt="">
+              <p class="plan-name">Duntara</p>
+              <ul class="page-text">
+                <li>3 bedrooms & 2.5 baths</li>
+                <li>Ensuite & walk-in closet in master</li>
+                <li>Open concept living area</li>
+                <li>Backyard access off kitchen</li>
+              </ul>
+              <div class="plan-views">
+                <img class="plan-view" src="assets/erco-plans14-2.jpeg" alt="">
+                <img class="plan-view" src="assets/erco-plans14-3.jpeg" alt="">
+              </div>
+              <a class="plan-pdf" href="assets/Duntara-Brochure14.pdf" target="_blank">Printable View</a>
+            </div>
+            <div class="plan">
+              <img class="plan-img" src="assets/erco-plans15-1.jpeg" alt="">
+              <p class="plan-name">Burnside</p>
+              <ul class="page-text">
+                <li>4 bedrooms & 3 baths</li>
+                <li>Ensuite & walk-in closet in master</li>
+                <li>Fully developed basement with theatre and games room</li>
+                <li>Open concept living area</li>
+                <li>Patio door off kitchen</li>
+              </ul>
+              <div class="plan-views">
+                <img class="plan-view" src="assets/erco-plans15-2.jpeg" alt="">
+                <img class="plan-view" src="assets/erco-plans15-3.jpeg" alt="">
+              </div>
+              <a class="plan-pdf" href="assets/Burnside-Brochure15.pdf" target="_blank">Printable View</a>
+            </div>
+            <div class="plan">
+              <img class="plan-img" src="assets/erco-plans16-1.jpeg" alt="">
+              <p class="plan-name">Trinity</p>
+              <ul class="page-text">
+                <li>3 bedrooms & 3 baths</li>
+                <li>Ensuite off master</li>
+                <li>Walk-in closet in master</li>
+                <li>Open concept living area</li>
+                <li>Patio door off kitchen</li>
+              </ul>
+              <div class="plan-views">
+                <img class="plan-view" src="assets/erco-plans16-2.jpeg" alt="">
+              </div>
+              <a class="plan-pdf" href="assets/Trinity-Brochure16.pdf" target="_blank">Printable View</a>
+            </div>
+            <div class="plan">
+              <img class="plan-img" src="assets/erco-plans17-1.jpeg" alt="">
+              <p class="plan-name">Clifden Woods Patio Homes</p>
+              <ul class="page-text">
+                <li>3 bedrooms & 3 baths</li>
+                <li>Ensuite & walk-in closet in master</li>
+                <li>Main floor laundry</li>
+                <li>Open concept living area</li>
+              </ul>
+              <div class="plan-views">
+                <img class="plan-view" src="assets/erco-plans17-2.jpeg" alt="">
+                <img class="plan-view" src="assets/erco-plans17-3.jpeg" alt="">
+              </div>
+              <a class="plan-pdf" href="assets/clifden_wood-Brochure17.pdf" target="_blank">Printable View</a>
+            </div>
+          </div>
+        </div>
+    </div>
+    </section>
+
+
+    <!-- Gallery page -->
+    <section id="gallery" class="content-section">
+      <h1 class="page-title page-margins">ERCO Gallery</h1>
+      <div class="page-margins">
+        <div class="gallery">
+          <div onclick="openModal('assets/erco-gallery1.jpeg')">
+            <img src="assets/erco-gallery1.jpeg" alt="Image 1">
+          </div>
+          <div onclick="openModal('assets/erco-gallery2.jpeg')">
+            <img src="assets/erco-gallery2.jpeg" alt="Image 2">
+          </div>
+          <div onclick="openModal('assets/erco-gallery3.jpeg')">
+            <img src="assets/erco-gallery3.jpeg" alt="Image 3">
+          </div>
+          <div onclick="openModal('assets/erco-gallery4.jpeg')">
+            <img src="assets/erco-gallery4.jpeg" alt="Image 4">
+          </div>
+          <div onclick="openModal('assets/erco-gallery5.jpeg')">
+            <img src="assets/erco-gallery5.jpeg" alt="Image 5">
+          </div>
+          <div onclick="openModal('assets/erco-gallery6.jpeg')">
+            <img src="assets/erco-gallery6.jpeg" alt="Image 6">
+          </div>
+          <div onclick="openModal('assets/erco-gallery7.jpeg')">
+            <img src="assets/erco-gallery7.jpeg" alt="Image 7">
+          </div>
+          <div onclick="openModal('assets/erco-gallery8.jpeg')">
+            <img src="assets/erco-gallery8.jpeg" alt="Image 8">
+          </div>
+          <div onclick="openModal('assets/erco-gallery9.jpeg')">
+            <img src="assets/erco-gallery9.jpeg" alt="Image 9">
+          </div>
+          <div onclick="openModal('assets/erco-gallery10.jpeg')">
+            <img src="assets/erco-gallery10.jpeg" alt="Image 10">
+          </div>
+          <div onclick="openModal('assets/erco-gallery11.jpeg')">
+            <img src="assets/erco-gallery11.jpeg" alt="Image 11">
+          </div>
+          <div onclick="openModal('assets/erco-gallery12.jpeg')">
+            <img src="assets/erco-gallery12.jpeg" alt="Image 12">
+          </div>
+          <div onclick="openModal('assets/erco-gallery13.jpeg')">
+            <img src="assets/erco-gallery13.jpeg" alt="Image 13">
+          </div>
+          <div onclick="openModal('assets/erco-gallery14.jpeg')">
+            <img src="assets/erco-gallery14.jpeg" alt="Image 14">
+          </div>
+          <div onclick="openModal('assets/erco-gallery15.jpeg')">
+            <img src="assets/erco-gallery15.jpeg" alt="Image 15">
+          </div>
+          <div onclick="openModal('assets/erco-gallery16.jpeg')">
+            <img src="assets/erco-gallery16.jpeg" alt="Image 16">
+          </div>
+          <div onclick="openModal('assets/erco-gallery17.jpeg')">
+            <img src="assets/erco-gallery17.jpeg" alt="Image 17">
+          </div>
+          <div onclick="openModal('assets/erco-gallery18.jpeg')">
+            <img src="assets/erco-gallery18.jpeg" alt="Image 18">
+          </div>
+          <div onclick="openModal('assets/erco-gallery19.jpeg')">
+            <img src="assets/erco-gallery19.jpeg" alt="Image 19">
+          </div>
+          <div onclick="openModal('assets/erco-gallery20.jpeg')">
+            <img src="assets/erco-gallery20.jpeg" alt="Image 20">
+          </div>
+          <div onclick="openModal('assets/erco-gallery21.jpeg')">
+            <img src="assets/erco-gallery21.jpeg" alt="Image 21">
+          </div>
+          <div onclick="openModal('assets/erco-gallery22.jpeg')">
+            <img src="assets/erco-gallery22.jpeg" alt="Image 22">
+          </div>
+          <div onclick="openModal('assets/erco-gallery23.jpeg')">
+            <img src="assets/erco-gallery23.jpeg" alt="Image 23">
+          </div>
+          <div onclick="openModal('assets/erco-gallery24.jpeg')">
+            <img src="assets/erco-gallery24.jpeg" alt="Image 24">
+          </div>
+          <div onclick="openModal('assets/erco-gallery25.jpeg')">
+            <img src="assets/erco-gallery25.jpeg" alt="Image 25">
+          </div>
+          <div onclick="openModal('assets/erco-gallery26.jpeg')">
+            <img src="assets/erco-gallery26.jpeg" alt="Image 26">
+          </div>
+          <div onclick="openModal('assets/erco-gallery27.jpeg')">
+            <img src="assets/erco-gallery27.jpeg" alt="Image 27">
+          </div>
+          <div onclick="openModal('assets/erco-gallery28.jpeg')">
+            <img src="assets/erco-gallery28.jpeg" alt="Image 28">
+          </div>
+          <div onclick="openModal('assets/erco-gallery29.jpeg')">
+            <img src="assets/erco-gallery29.jpeg" alt="Image 29">
+          </div>
+          <div onclick="openModal('assets/erco-gallery30.jpeg')">
+            <img src="assets/erco-gallery30.jpeg" alt="Image 30">
+          </div>
+          <div onclick="openModal('assets/erco-gallery31.jpeg')">
+            <img src="assets/erco-gallery31.jpeg" alt="Image 31">
+          </div>
+          <div onclick="openModal('assets/erco-gallery32.jpeg')">
+            <img src="assets/erco-gallery32.jpeg" alt="Image 32">
+          </div>
+          <div onclick="openModal('assets/erco-gallery33.jpeg')">
+            <img src="assets/erco-gallery33.jpeg" alt="Image 33">
+          </div>
+          <div onclick="openModal('assets/erco-gallery34.jpeg')">
+            <img src="assets/erco-gallery34.jpeg" alt="Image 34">
+          </div>
+          <div onclick="openModal('assets/erco-gallery35.jpeg')">
+            <img src="assets/erco-gallery35.jpeg" alt="Image 35">
+          </div>
+          <div onclick="openModal('assets/erco-gallery36.jpeg')">
+            <img src="assets/erco-gallery36.jpeg" alt="Image 36">
+          </div>
+          <div onclick="openModal('assets/erco-gallery37.jpeg')">
+            <img src="assets/erco-gallery37.jpeg" alt="Image 37">
+          </div>
+          <div onclick="openModal('assets/erco-gallery38.jpeg')">
+            <img src="assets/erco-gallery38.jpeg" alt="Image 38">
+          </div>
+          <div onclick="openModal('assets/erco-gallery39.jpeg')">
+            <img src="assets/erco-gallery39.jpeg" alt="Image 39">
+          </div>
+          <div onclick="openModal('assets/erco-gallery40.jpeg')">
+            <img src="assets/erco-gallery40.jpeg" alt="Image 40">
+          </div>
+          <div onclick="openModal('assets/erco-gallery41.jpeg')">
+            <img src="assets/erco-gallery41.jpeg" alt="Image 41">
+          </div>
+          <div onclick="openModal('assets/erco-gallery42.jpeg')">
+            <img src="assets/erco-gallery42.jpeg" alt="Image 42">
+          </div>
+          <div onclick="openModal('assets/erco-gallery43.jpeg')">
+            <img src="assets/erco-gallery43.jpeg" alt="Image 43">
+          </div>
+          <div onclick="openModal('assets/erco-gallery44.jpeg')">
+            <img src="assets/erco-gallery44.jpeg" alt="Image 44">
+          </div>
+          <div onclick="openModal('assets/erco-gallery45.jpeg')">
+            <img src="assets/erco-gallery45.jpeg" alt="Image 45">
+          </div>
+          <div onclick="openModal('assets/erco-gallery46.jpeg')">
+            <img src="assets/erco-gallery46.jpeg" alt="Image 46">
+          </div>
+          <div onclick="openModal('assets/erco-gallery47.jpeg')">
+            <img src="assets/erco-gallery47.jpeg" alt="Image 47">
+          </div>
+          <div onclick="openModal('assets/erco-gallery48.jpeg')">
+            <img src="assets/erco-gallery48.jpeg" alt="Image 48">
+          </div>
+          <div onclick="openModal('assets/erco-gallery49.jpeg')">
+            <img src="assets/erco-gallery49.jpeg" alt="Image 49">
+          </div>
+          <div onclick="openModal('assets/erco-gallery50.jpeg')">
+            <img src="assets/erco-gallery50.jpeg" alt="Image 50">
+          </div>
+          <div onclick="openModal('assets/erco-gallery51.jpeg')">
+            <img src="assets/erco-gallery51.jpeg" alt="Image 51">
+          </div>
+          <div onclick="openModal('assets/erco-gallery52.jpeg')">
+            <img src="assets/erco-gallery52.jpeg" alt="Image 52">
+          </div>
+          <div onclick="openModal('assets/erco-gallery53.jpeg')">
+            <img src="assets/erco-gallery53.jpeg" alt="Image 53">
+          </div>
+          <div onclick="openModal('assets/erco-gallery54.jpeg')">
+            <img src="assets/erco-gallery54.jpeg" alt="Image 54">
+          </div>
+          <div onclick="openModal('assets/erco-gallery55.jpeg')">
+            <img src="assets/erco-gallery55.jpeg" alt="Image 55">
+          </div>
+          <div onclick="openModal('assets/erco-gallery56.jpeg')">
+            <img src="assets/erco-gallery56.jpeg" alt="Image 56">
+          </div>
+          <div onclick="openModal('assets/erco-gallery57.jpeg')">
+            <img src="assets/erco-gallery57.jpeg" alt="Image 57">
+          </div>
+          <div onclick="openModal('assets/erco-gallery58.jpeg')">
+            <img src="assets/erco-gallery58.jpeg" alt="Image 58">
+          </div>
+          <div onclick="openModal('assets/erco-gallery59.jpeg')">
+            <img src="assets/erco-gallery59.jpeg" alt="Image 59">
+          </div>
+          <div onclick="openModal('assets/erco-gallery60.jpeg')">
+            <img src="assets/erco-gallery60.jpeg" alt="Image 60">
+          </div>
+          <div onclick="openModal('assets/erco-gallery61.jpeg')">
+            <img src="assets/erco-gallery61.jpeg" alt="Image 61">
+          </div>
+          <div onclick="openModal('assets/erco-gallery62.jpeg')">
+            <img src="assets/erco-gallery62.jpeg" alt="Image 62">
+          </div>
+          <div onclick="openModal('assets/erco-gallery63.jpeg')">
+            <img src="assets/erco-gallery63.jpeg" alt="Image 63">
+          </div>
+        </div>
+        <div id="myModal" class="modal" onclick="closeModal()">
+          <div class="modal-content">
+            <img id="modalImg" alt="Modal Image">
+          </div>
+        </div>
+    </section>
+
+    <!-- Contact page -->
+    <section id="contact" class="content-section">
+      <h1 class="page-title page-margins">Contact Us</h1>
+      <p class="page-margins">This is the content for the contact page.</p>
+    </section>
+
+    </div>
+    <footer>
+      <img src="assets/erco-logo.jpeg" alt="logo">
+      <p class="footer-contact">709-738-8700 | office@ERCOhomes.ca | 446 Newfoundland Drive Torbay Place Building, Suite
+        205 St. John's NL PO
+        Box 29090
+        St. John's, NL A1A 5B5</p>
+      <p class="footer-text">© 2018 All Rights Reserved | ERCO Homes</p>
+    </footer>
+  </main>
+  <script>
+    // ----- Carousel ----- //
+    function setupCarousel(carouselId, navigationId) {
+      let carouselContainer = document.getElementById(carouselId);
+      let carousel = carouselContainer.querySelector(".carousel");
+      let slides = carousel.children;
+      let totalSlides = slides.length;
+      let slideWidth = carouselContainer.offsetWidth;
+      let initialPosition = 0;
+      let currentPosition = 0;
+      let isDragging = false;
+      let slideIndex = 0;
+
+
+      if (slideWidth == 0) {
+        slideWidth = 940;
+      }
+
+      carousel.style.width = `${totalSlides * slideWidth}px`;
+
+
+
+      showSlide(slideIndex);
+
+      function showSlide(n) {
+        slideIndex = (n + totalSlides) % totalSlides;
+
+        carousel.style.transform = `translateX(-${slideIndex * slideWidth}px)`;
+
+        let dots = document.getElementById(navigationId).getElementsByClassName("dot");
+        for (let i = 0; i < totalSlides; i++) {
+          dots[i].classList.remove("active");
+        }
+
+        dots[slideIndex].classList.add("active");
+      }
+
+      function nextSlide() {
+        showSlide(slideIndex + 1);
+      }
+
+      function prevSlide() {
+        showSlide(slideIndex - 1);
+      }
+
+      carouselContainer.addEventListener("mousedown", function (event) {
+        carousel.style.transition = "none";
+        initialPosition = event.clientX;
+        isDragging = true;
+      });
+
+      document.addEventListener("mousemove", function (event) {
+        if (isDragging) {
+          currentPosition = event.clientX - initialPosition;
+          carousel.style.transform = `translateX(calc(-${slideIndex * slideWidth}px + ${currentPosition}px))`;
+        }
+      });
+
+      document.addEventListener("mouseup", function (event) {
+        if (isDragging) {
+          isDragging = false;
+          carousel.style.transition = "transform 0.3s ease-in-out";
+
+          if (Math.abs(currentPosition) > slideWidth / 4) {
+            if (currentPosition < 0) {
+              nextSlide();
+            } else {
+              prevSlide();
+            }
+          } else {
+            showSlide(slideIndex);
+          }
+
+          currentPosition = 0;
+        }
+      });
+
+      setInterval(function () {
+        if (!isDragging) {
+          nextSlide();
+        }
+      }, 3000);
+    }
+    setupCarousel("carousel1", "carousel1-navigation");
+    // setupCarousel("carousel2", "carousel2-navigation");
+    // ----- Carousel end ----- //
+
+
+    // ----- Function to show other pages ----- //
+    function showSection(sectionId) {
+      // Hide all pages
+      var sections = document.getElementsByClassName('content-section');
+      for (var i = 0; i < sections.length; i++) {
+        sections[i].classList.remove('active');
+      }
+      let navLinks = document.getElementsByClassName('nav-link');
+      for (var i = 0; i < navLinks.length; i++) {
+        navLinks[i].classList.remove('active');
+      }
+
+      // Show the selected page
+      var section = document.getElementById(sectionId);
+      section.classList.add('active');
+
+      // Highlight the selected nav link
+      var navLink = document.getElementById(sectionId + '-link');
+      navLink.classList.add('active');
+    }
+    // ----- Other pages end ----- //
+
+
+    // ----- Function to show the modal ----- //
+    // Open the modal with the clicked image
+    function openModal(imgSrc) {
+      var modal = document.getElementById("myModal");
+      var modalImg = document.getElementById("modalImg");
+      modal.style.display = "block";
+      modalImg.src = imgSrc;
+    }
+
+    // Close the modal
+    function closeModal() {
+      var modal = document.getElementById("myModal");
+      modal.style.display = "none";
+    }
+    // ----- Modal end ----- //
+
+
+  </script>
+</body>
+
+</html>
